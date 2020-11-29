@@ -2,20 +2,24 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <qdynamicbutton.h>
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+namespace Ui {
+class MainWindow;
+}
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+void CreateButton(int N, int M);
 
 private:
+    QDynamicButton qdynamicbutton;
     Ui::MainWindow *ui;
 };
+
 #endif // MAINWINDOW_H
