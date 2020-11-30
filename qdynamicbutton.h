@@ -2,9 +2,9 @@
 #define QDYNAMICBUTTON_H
 
 #include <QPushButton>
+#include <qmypushbutton.h>
 
-
-class QDynamicButton : public QPushButton
+class QDynamicButton : public QMyPushButton
 {
     Q_OBJECT
 public:

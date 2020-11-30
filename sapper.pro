@@ -22,7 +22,8 @@ SOURCES += \
 
 HEADERS += \
     mainwindow.h \
-    qdynamicbutton.h
+    qdynamicbutton.h \
+    qmypushbutton.h
 
 FORMS += \
     mainwindow.ui
@@ -31,3 +32,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    res.qrc

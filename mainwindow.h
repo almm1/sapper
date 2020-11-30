@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <qdynamicbutton.h>
 
+
 namespace Ui {
 class MainWindow;
 }
@@ -15,7 +16,10 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
 void CreateButton(int N, int M);
+void slotGetButton();
+void slotRclick();
 
 private:
     QDynamicButton qdynamicbutton;

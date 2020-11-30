@@ -1,7 +1,7 @@
 #include "qdynamicbutton.h"
 
 QDynamicButton::QDynamicButton(QWidget *parent) :
-    QPushButton(parent)
+    QMyPushButton(parent)
 {
     setN(16);
     setM(30);
