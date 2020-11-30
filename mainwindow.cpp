@@ -28,8 +28,8 @@ void MainWindow::CreateButton(int N, int M)
             button->setX(i);
             button->setY(j);
             //подключение сигнала
-            connect(button, &QMyPushButton::clicked, this, &MainWindow::slotGetButton);//для левой кнопки мыши
-            //connect(button, &QMyPushButton::rClicked, this, &MainWindow::slotRclick);//для правой кнопки мыши
+            connect(button, &QMyPushButton::lClicked, this, &MainWindow::slotGetButton);//для левой кнопки мыши
+            connect(button, &QMyPushButton::rClicked, this, &MainWindow::slotRclick);//для правой кнопки мыши
         }
     }
 }
@@ -47,6 +47,5 @@ void MainWindow::slotGetButton()
 
 void MainWindow::slotRclick()
 {
-    QDynamicButton *button = (QDynamicButton*) sender();
-    button->setIcon(QIcon("/image/flag"));
+
 }

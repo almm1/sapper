@@ -11,12 +11,17 @@ public:
         QMyPushButton(QWidget *parent = 0) : QPushButton(parent){};
 signals:
         void rClicked();
+        void lClicked();
 protected:
         void mouseReleaseEvent(QMouseEvent *event)
         {
         if(event->button() == Qt::RightButton)
                 {
                 emit rClicked();
+                }
+        if(event->button() == Qt::LeftButton)
+                {
+                emit lClicked();
                 }
         }
 };
