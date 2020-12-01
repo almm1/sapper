@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <qdynamicbutton.h>
+#include <QTime>
 
 
 namespace Ui {
@@ -18,11 +19,14 @@ public:
     ~MainWindow();
 
 void CreateButton(int N, int M);
+void createBomb(int N, int M, int bomb);
 void slotGetButton();
 void slotRclick();
 
 private:
+
     QDynamicButton qdynamicbutton;
+    QDynamicButton **button;
     Ui::MainWindow *ui;
 };
 

@@ -3,8 +3,9 @@
 QDynamicButton::QDynamicButton(QWidget *parent) :
     QMyPushButton(parent)
 {
-    setN(16);
-    setM(30);
+    setN(9);
+    setM(9);
+    setBomb(10);
     this->setFixedSize(25,25);//фиксированый размер кнопки
 }
 
@@ -28,3 +29,7 @@ int QDynamicButton::getX(){return posX;}
 void QDynamicButton::setY(int y){posY = y;}
 
 int QDynamicButton::getY(){return posY;}
+
+void QDynamicButton::setBomb(int Bomb){bomb = Bomb;}
+
+int QDynamicButton::getBomb(){return bomb;}

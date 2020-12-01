@@ -18,6 +18,8 @@ public:
     int getX();
     void setY(int y);
     int getY();
+    void setBomb(int Bomb);
+    int getBomb();
 
 
 private:
@@ -25,6 +27,7 @@ private:
     int M = 0;
     int posX = 0;
     int posY = 0;
+    int bomb = 0;
 };
 
 #endif // QDYNAMICBUTTON_H
