@@ -7,8 +7,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+     pressLeftCnt = 0;
+
     CreateButton(qdynamicbutton.getN(), qdynamicbutton.getM());//создание кнопок(карты)
-    createBomb(qdynamicbutton.getN(), qdynamicbutton.getM(), qdynamicbutton.getBomb());
 
     this->setWindowFlag(Qt::MSWindowsFixedSizeDialogHint);//запрет на изменение размера окна
 }
@@ -45,10 +47,21 @@ void MainWindow::slotGetButton()
      * */
     int x,y;
     QDynamicButton *but = (QDynamicButton*) sender();
+
     x=but->getX();
     y=but->getY();
-    ui->label_2->setText(QString::number(x)+ ":"+ QString::number(y));
-    but->hide();
+
+    if (pressLeftCnt == 0)
+    {
+        pressLeftCnt++;
+        //but->hide();
+        createBomb(qdynamicbutton.getN(), qdynamicbutton.getM(), qdynamicbutton.getBomb(), x, y);
+        clearZone(x, y, qdynamicbutton.getN(), qdynamicbutton.getM());
+    }
+    else{ clearZone(x, y, qdynamicbutton.getN(), qdynamicbutton.getM());}
+     ui->label_2->setText(QString::number(x)+ ":"+ QString::number(y));
+     ui->label->setText(QString::number(x*qdynamicbutton.getM()+y));
+
 }
 
 void MainWindow::slotRclick()
@@ -63,33 +76,105 @@ bool checkValue(int *arr, int size, int value)//функция проверки 
 {
    for(int i = 0; i < size; i++)
    {
-     if(arr[i] == value)
-        return false;
+        if(arr[i] == value)
+            return false;
    }
    return true;
 }
 
-void MainWindow::createBomb(int N, int M, int bomb)
-{
+void MainWindow::createBomb(int N, int M, int bomb, int x, int y)
+{ 
     qsrand(QTime::currentTime().msecsSinceStartOfDay());//рандом
 
-    QIcon icon;
-    icon.addFile(QString(":/image/bomb.ico"), QSize(20, 20), QIcon::Normal, QIcon::Off);
-
-    int *b= new int [bomb];
+    int current=x*M+y;//выбранная точка(точка на которую нажали первой)
+    int *b= new int [bomb];//массив с id метками нахождения бомб
     int random;
 
     for(int k = 0; k < bomb; k++)
     {
-       do
-       {
-        random = (qrand() % (N*M + 1));
-       } while(checkValue(b, k, random) == false);
+       do {
+            do {
+            random = (qrand() % (N*M));
+            }while(random == current);//проверка чтобы бомба не попала в выброную точку
+       } while(checkValue(b, k, random) == false);//проверка на повторение
       b[k] = random;
     }
 
     for (int i =0; i < bomb; i++)
     {
-        button[b[i]/10][b[i]%10].setIcon(icon);
+        button[b[i]/M][b[i]%M].status = qdynamicbutton.BOMB;
+        button[b[i]/M][b[i]%M].setEnabled(false);
+    }
+}
+
+void MainWindow::clearZone(int x, int y, int N, int M)
+{
+    int cntBomb=0;
+
+    if (x==0)
+    {
+        for (int i = 0; i<2; i++)
+        {
+            for (int j = -1; j<2; j++)
+            {
+                if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                    cntBomb++;
+            }
+        }
+    }
+    else if (x==M-1)
+    {
+        for (int i = -1; i<1; i++)
+        {
+            for (int j = -1; j<2; j++)
+            {
+                if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                    cntBomb++;
+            }
+        }
+    }
+
+    else if (y==0)
+    {
+        for (int i = -1; i<2; i++)
+        {
+            for (int j = 0; j<2; j++)
+            {
+                if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                    cntBomb++;
+            }
+        }
+    }
+    else if (y==N-1)
+    {
+        for (int i = -1; i<2; i++)
+        {
+            for (int j = -1; j<1; j++)
+            {
+                if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                    cntBomb++;
+            }
+        }
+    }
+    else
+    {
+        for (int i = -1; i<2; i++)
+        {
+            for (int j = -1; j<2; j++)
+            {
+                if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                    cntBomb++;
+            }
+        }
+    }
+
+    if (cntBomb==0)
+        button[x][y].setEnabled(false);
+    else
+    {
+        QIcon icon;
+        icon.addFile(QString(":/image/"+QString::number(cntBomb)+".ico"), QSize(20, 20), QIcon::Normal, QIcon::Off);
+        button[x][y].setIcon(icon);
+        button[x][y].setEnabled(false);
     }
 }

@@ -10,17 +10,24 @@ class QDynamicButton : public QMyPushButton
 public:
     explicit QDynamicButton(QWidget *parent = 0);
     ~QDynamicButton();
+
     void setN(int number);
     int getN();
+
     void setM(int number);
     int getM();
+
     void setX(int x);
     int getX();
+
     void setY(int y);
     int getY();
+
     void setBomb(int Bomb);
     int getBomb();
 
+    enum {BOMB, FLAG, MARK, NUMB};
+    int status;
 
 private:
     int N = 0;

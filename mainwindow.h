@@ -19,9 +19,12 @@ public:
     ~MainWindow();
 
 void CreateButton(int N, int M);
-void createBomb(int N, int M, int bomb);
+void createBomb(int N, int M, int bomb, int x, int y);
 void slotGetButton();
 void slotRclick();
+void clearZone(int x, int y, int N, int M);
+
+int pressLeftCnt;
 
 private:
 
