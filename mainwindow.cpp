@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowFlag(Qt::MSWindowsFixedSizeDialogHint);//запрет на изменение размера окна
 }
 
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -54,14 +55,12 @@ void MainWindow::slotGetButton()
     if (pressLeftCnt == 0)
     {
         pressLeftCnt++;
-        //but->hide();
         createBomb(qdynamicbutton.getN(), qdynamicbutton.getM(), qdynamicbutton.getBomb(), x, y);
         clearZone(x, y, qdynamicbutton.getN(), qdynamicbutton.getM());
     }
     else{ clearZone(x, y, qdynamicbutton.getN(), qdynamicbutton.getM());}
      ui->label_2->setText(QString::number(x)+ ":"+ QString::number(y));
      ui->label->setText(QString::number(x*qdynamicbutton.getM()+y));
-
 }
 
 void MainWindow::slotRclick()
@@ -99,42 +98,115 @@ void MainWindow::createBomb(int N, int M, int bomb, int x, int y)
        } while(checkValue(b, k, random) == false);//проверка на повторение
       b[k] = random;
     }
-
+    QIcon icon;
+    icon.addFile(QString(":/image/bomb.ico"), QSize(20, 20), QIcon::Normal, QIcon::Off);
     for (int i =0; i < bomb; i++)
     {
         button[b[i]/M][b[i]%M].status = qdynamicbutton.BOMB;
-        button[b[i]/M][b[i]%M].setEnabled(false);
+
+        button[b[i]/M][b[i]%M].setIcon(icon);
+       // button[b[i]/M][b[i]%M].setEnabled(false);
+    }
+
+    for (int i = 0; i<N; i++)
+    {
+        for (int j =0; j<M; j++)
+        {
+            if (button[i][j].status!=qdynamicbutton.BOMB)
+           {
+                if ((button[i][j].bombAround=searchBomb(i,j,N,M))==0)
+             {
+                    button[i][j].status=qdynamicbutton.HOLE;
+                    setImageNumber(i,j,button[i][j].bombAround);
+              }
+                else
+                {
+                    button[i][j].status=qdynamicbutton.NUMB;
+                    setImageNumber(i,j,button[i][j].bombAround);
+                }
+            }
+        }
     }
 }
 
-void MainWindow::clearZone(int x, int y, int N, int M)
+int MainWindow::searchBomb(int x, int y, int N, int M)
 {
     int cntBomb=0;
 
     if (x==0)
     {
-        for (int i = 0; i<2; i++)
+        if (y==0)
         {
-            for (int j = -1; j<2; j++)
+            for (int i = 0; i<2; i++)
             {
-                if(button[x+i][y+j].status==qdynamicbutton.BOMB)
-                    cntBomb++;
+                for (int j = 0; j<2; j++)
+                {
+                    if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                        cntBomb++;
+                }
+            }
+        }
+        else if (y == M-1)
+        {
+            for (int i = 0; i<2; i++)
+            {
+                for (int j = 0; j<1; j++)
+                {
+                    if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                        cntBomb++;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i<2; i++)
+            {
+                for (int j = -1; j<2; j++)
+                {
+                    if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                        cntBomb++;
+                }
             }
         }
     }
-    else if (x==M-1)
+    else if (x==N-1)
     {
-        for (int i = -1; i<1; i++)
+        if (y==0)
         {
-            for (int j = -1; j<2; j++)
+            for (int i = -1; i<1; i++)
             {
-                if(button[x+i][y+j].status==qdynamicbutton.BOMB)
-                    cntBomb++;
+                for (int j = 0; j<2; j++)
+                {
+                    if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                        cntBomb++;
+                }
             }
         }
+        else if (y == M-1)
+        {
+            for (int i = -1; i<1; i++)
+            {
+                for (int j = 0; j<1; j++)
+                {
+                    if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                        cntBomb++;
+                }
+            }
+        }
+        else {
+            for (int i = -1; i<1; i++)
+            {
+                for (int j = -1; j<2; j++)
+                {
+                    if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                        cntBomb++;
+                }
+            }
+        }
+
     }
 
-    else if (y==0)
+    else if (y==0 and x != N-1)
     {
         for (int i = -1; i<2; i++)
         {
@@ -145,7 +217,7 @@ void MainWindow::clearZone(int x, int y, int N, int M)
             }
         }
     }
-    else if (y==N-1)
+    else if (y==M-1)
     {
         for (int i = -1; i<2; i++)
         {
@@ -156,6 +228,7 @@ void MainWindow::clearZone(int x, int y, int N, int M)
             }
         }
     }
+
     else
     {
         for (int i = -1; i<2; i++)
@@ -167,14 +240,21 @@ void MainWindow::clearZone(int x, int y, int N, int M)
             }
         }
     }
-
-    if (cntBomb==0)
-        button[x][y].setEnabled(false);
-    else
-    {
-        QIcon icon;
-        icon.addFile(QString(":/image/"+QString::number(cntBomb)+".ico"), QSize(20, 20), QIcon::Normal, QIcon::Off);
-        button[x][y].setIcon(icon);
-        button[x][y].setEnabled(false);
-    }
+    return cntBomb;
 }
+
+void MainWindow::setImageNumber(int x, int y, int num)
+{
+    QIcon icon;
+    icon.addFile(QString(":/image/"+QString::number(num)+".ico"), QSize(20, 20), QIcon::Normal, QIcon::Off);
+    button[x][y].setIcon(icon);
+    button[x][y].setStyleSheet("QPushButton { border:solid;}");
+  //  button[x][y].setEnabled(false);
+}
+
+void MainWindow::clearZone(int x, int y, int N, int M)
+{
+   int cntBomb=searchBomb(x,y,N,M);
+
+}
+

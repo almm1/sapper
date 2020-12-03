@@ -26,9 +26,9 @@ public:
     void setBomb(int Bomb);
     int getBomb();
 
-    enum {BOMB, FLAG, MARK, NUMB};
+    enum {BOMB, FLAG, MARK, NUMB, HOLE};
     int status;
-
+    int bombAround;
 private:
     int N = 0;
     int M = 0;

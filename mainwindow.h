@@ -23,6 +23,8 @@ void createBomb(int N, int M, int bomb, int x, int y);
 void slotGetButton();
 void slotRclick();
 void clearZone(int x, int y, int N, int M);
+int searchBomb(int x, int y, int N, int M);
+void setImageNumber(int x, int y, int num);
 
 int pressLeftCnt;
 
