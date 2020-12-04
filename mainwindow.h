@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <qdynamicbutton.h>
 #include <QTime>
-
+#include "map.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,10 +26,12 @@ void clearZone(int x, int y, int N, int M);
 int searchBomb(int x, int y, int N, int M);
 void setImageNumber(int x, int y, int num);
 
+
 int pressLeftCnt;
 
 private:
-
+    Map map;
+    QDynamicButton *bu;
     QDynamicButton qdynamicbutton;
     QDynamicButton **button;
     Ui::MainWindow *ui;

@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
      pressLeftCnt = 0;
 
-    CreateButton(qdynamicbutton.getN(), qdynamicbutton.getM());//создание кнопок(карты)
+     CreateButton(map.getN(), map.getM());//создание кнопок(карты)
 
     this->setWindowFlag(Qt::MSWindowsFixedSizeDialogHint);//запрет на изменение размера окна
 }
@@ -20,6 +20,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
 
 void MainWindow::CreateButton(int N, int M)
 {
@@ -55,12 +56,12 @@ void MainWindow::slotGetButton()
     if (pressLeftCnt == 0)
     {
         pressLeftCnt++;
-        createBomb(qdynamicbutton.getN(), qdynamicbutton.getM(), qdynamicbutton.getBomb(), x, y);
-        clearZone(x, y, qdynamicbutton.getN(), qdynamicbutton.getM());
+        createBomb(map.getN(), map.getM(), map.getBomb(), x, y);
+        clearZone(x, y, map.getN(), map.getM());
     }
-    else{ clearZone(x, y, qdynamicbutton.getN(), qdynamicbutton.getM());}
+    else{ clearZone(x, y, map.getN(), map.getM());}
      ui->label_2->setText(QString::number(x)+ ":"+ QString::number(y));
-     ui->label->setText(QString::number(x*qdynamicbutton.getM()+y));
+     ui->label->setText(QString::number(x*map.getM()+y));
 }
 
 void MainWindow::slotRclick()
@@ -107,6 +108,7 @@ void MainWindow::createBomb(int N, int M, int bomb, int x, int y)
         button[b[i]/M][b[i]%M].setIcon(icon);
        // button[b[i]/M][b[i]%M].setEnabled(false);
     }
+
 
     for (int i = 0; i<N; i++)
     {

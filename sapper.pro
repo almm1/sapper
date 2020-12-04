@@ -18,10 +18,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    map.cpp \
     qdynamicbutton.cpp
 
 HEADERS += \
     mainwindow.h \
+    map.h \
     qdynamicbutton.h \
     qmypushbutton.h
 
