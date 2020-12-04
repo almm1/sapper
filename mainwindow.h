@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <qdynamicbutton.h>
+#include <cell.h>
+#include <qmypushbutton.h>
 #include <QTime>
 #include "map.h"
 
@@ -31,9 +32,8 @@ int pressLeftCnt;
 
 private:
     Map map;
-    QDynamicButton *bu;
-    QDynamicButton qdynamicbutton;
-    QDynamicButton **button;
+    Cell cell;
+    Cell **button;
     Ui::MainWindow *ui;
 };
 

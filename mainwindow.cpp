@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "qdynamicbutton.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -24,9 +23,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::CreateButton(int N, int M)
 {
-    button = new QDynamicButton* [N];
+    button = new Cell* [N];
       for (int i = 0; i<N; i++)
-        button[i]=new QDynamicButton[M];
+        button[i]=new Cell[M];
 
     for (int i = 0; i<N; i++)
     {
@@ -48,7 +47,7 @@ void MainWindow::slotGetButton()
     /* Определяем объект, который вызвал сигнал
      * */
     int x,y;
-    QDynamicButton *but = (QDynamicButton*) sender();
+    Cell *but = (Cell*) sender();
 
     x=but->getX();
     y=but->getY();
@@ -66,7 +65,7 @@ void MainWindow::slotGetButton()
 
 void MainWindow::slotRclick()
 {
-    QDynamicButton *but = (QDynamicButton*) sender();
+    Cell *but = (Cell*) sender();
     QIcon icon;
     icon.addFile(QString(":/image/flag.ico"), QSize(20, 20), QIcon::Normal, QIcon::Off);
     but->setIcon(icon);
@@ -103,7 +102,7 @@ void MainWindow::createBomb(int N, int M, int bomb, int x, int y)
     icon.addFile(QString(":/image/bomb.ico"), QSize(20, 20), QIcon::Normal, QIcon::Off);
     for (int i =0; i < bomb; i++)
     {
-        button[b[i]/M][b[i]%M].status = qdynamicbutton.BOMB;
+        button[b[i]/M][b[i]%M].status = map.BOMB;
 
         button[b[i]/M][b[i]%M].setIcon(icon);
        // button[b[i]/M][b[i]%M].setEnabled(false);
@@ -114,16 +113,16 @@ void MainWindow::createBomb(int N, int M, int bomb, int x, int y)
     {
         for (int j =0; j<M; j++)
         {
-            if (button[i][j].status!=qdynamicbutton.BOMB)
+            if (button[i][j].status!=map.BOMB)
            {
                 if ((button[i][j].bombAround=searchBomb(i,j,N,M))==0)
              {
-                    button[i][j].status=qdynamicbutton.HOLE;
+                    button[i][j].status=map.HOLE;
                     setImageNumber(i,j,button[i][j].bombAround);
               }
                 else
                 {
-                    button[i][j].status=qdynamicbutton.NUMB;
+                    button[i][j].status=map.NUMB;
                     setImageNumber(i,j,button[i][j].bombAround);
                 }
             }
@@ -143,7 +142,7 @@ int MainWindow::searchBomb(int x, int y, int N, int M)
             {
                 for (int j = 0; j<2; j++)
                 {
-                    if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                    if(button[x+i][y+j].status==map.BOMB)
                         cntBomb++;
                 }
             }
@@ -154,7 +153,7 @@ int MainWindow::searchBomb(int x, int y, int N, int M)
             {
                 for (int j = 0; j<1; j++)
                 {
-                    if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                    if(button[x+i][y+j].status==map.BOMB)
                         cntBomb++;
                 }
             }
@@ -165,7 +164,7 @@ int MainWindow::searchBomb(int x, int y, int N, int M)
             {
                 for (int j = -1; j<2; j++)
                 {
-                    if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                    if(button[x+i][y+j].status==map.BOMB)
                         cntBomb++;
                 }
             }
@@ -179,7 +178,7 @@ int MainWindow::searchBomb(int x, int y, int N, int M)
             {
                 for (int j = 0; j<2; j++)
                 {
-                    if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                    if(button[x+i][y+j].status==map.BOMB)
                         cntBomb++;
                 }
             }
@@ -190,7 +189,7 @@ int MainWindow::searchBomb(int x, int y, int N, int M)
             {
                 for (int j = 0; j<1; j++)
                 {
-                    if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                    if(button[x+i][y+j].status==map.BOMB)
                         cntBomb++;
                 }
             }
@@ -200,7 +199,7 @@ int MainWindow::searchBomb(int x, int y, int N, int M)
             {
                 for (int j = -1; j<2; j++)
                 {
-                    if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                    if(button[x+i][y+j].status==map.BOMB)
                         cntBomb++;
                 }
             }
@@ -214,7 +213,7 @@ int MainWindow::searchBomb(int x, int y, int N, int M)
         {
             for (int j = 0; j<2; j++)
             {
-                if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                if(button[x+i][y+j].status==map.BOMB)
                     cntBomb++;
             }
         }
@@ -225,7 +224,7 @@ int MainWindow::searchBomb(int x, int y, int N, int M)
         {
             for (int j = -1; j<1; j++)
             {
-                if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                if(button[x+i][y+j].status==map.BOMB)
                     cntBomb++;
             }
         }
@@ -237,7 +236,7 @@ int MainWindow::searchBomb(int x, int y, int N, int M)
         {
             for (int j = -1; j<2; j++)
             {
-                if(button[x+i][y+j].status==qdynamicbutton.BOMB)
+                if(button[x+i][y+j].status==map.BOMB)
                     cntBomb++;
             }
         }
