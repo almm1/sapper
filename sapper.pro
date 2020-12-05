@@ -17,12 +17,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     cell.cpp \
+    game.cpp \
     main.cpp \
     mainwindow.cpp \
     map.cpp
 
 HEADERS += \
     cell.h \
+    game.h \
     mainwindow.h \
     map.h \
     qmypushbutton.h

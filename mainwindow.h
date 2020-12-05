@@ -14,27 +14,13 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-void CreateButton(int N, int M);
-void createBomb(int N, int M, int bomb, int x, int y);
-void slotGetButton();
-void slotRclick();
-void clearZone(int x, int y, int N, int M);
-int searchBomb(int x, int y, int N, int M);
-void setImageNumber(int x, int y, int num);
-
-
-int pressLeftCnt;
-
+    void setButton(QWidget *qwidget,int x, int y);
 private:
-    Map map;
-    Cell cell;
-    Cell **button;
-    Ui::MainWindow *ui;
+      Ui::MainWindow *ui;
 };
 
-#endif // MAINWINDOW_H
+#endif  //MAINWINDOW_H

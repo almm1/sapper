@@ -6,10 +6,7 @@ Cell::Cell(QWidget *parent) :
     this->setFixedSize(25,25);//фиксированый размер кнопки
 }
 
-Cell::~Cell()
-{
-
-}
+Cell::~Cell(){}
 
 void Cell::setX(int x){posX = x;}
 
