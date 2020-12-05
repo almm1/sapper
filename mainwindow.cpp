@@ -1,16 +1,16 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "game.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //Game *game=new Game(5);
-    Game *game=new Game;
-    connect(game, &Game::signal, this, &MainWindow::setButton);
-    game->CreateButton(game->n_s,game->m_s);
+
+    connect(&game, &Game::signal, this, &MainWindow::setButton);//коннектор функций класса Game для изменения ui окна MainWindow
+    game.CreateButton(game.n_s,game.m_s);//создание поля
+
     this->setWindowFlag(Qt::MSWindowsFixedSizeDialogHint);//запрет на изменение размера окна
 }
 

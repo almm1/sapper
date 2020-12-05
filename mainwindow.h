@@ -2,10 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <cell.h>
 #include <qmypushbutton.h>
-#include <QTime>
-#include "map.h"
+#include "game.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,6 +18,7 @@ public:
 
     void setButton(QWidget *qwidget,int x, int y);
 private:
+      Game game;
       Ui::MainWindow *ui;
 };
 

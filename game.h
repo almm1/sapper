@@ -1,7 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "mainwindow.h"
+//#include "mainwindow.h"
+#include <QObject>
+#include "map.h"
+#include "cell.h"
+#include <QTime>
 
 class Game: public QObject
 {

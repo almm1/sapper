@@ -5,13 +5,11 @@ Game::Game()
     pressLeftCnt = 0;
     n_s=map.getN();
     m_s=map.getM();
-    //CreateButton(map.getN(), map.getM());//создание кнопок(карты)
 }
 
 
 void Game::CreateButton(int N, int M)
 {
-   // MainWindow mw(N);
     button = new Cell* [N];
       for (int i = 0; i<N; i++)
         button[i]=new Cell[M];
@@ -89,7 +87,7 @@ void Game::createBomb(int N, int M, int bomb, int x, int y)
       b[k] = random;
     }
     QIcon icon;
-    icon.addFile(QString(":/image/bomb.ico"), QSize(20, 20), QIcon::Normal, QIcon::Off);
+    icon.addFile(QString(":/image/bomb.ico"), QSize(30, 30), QIcon::Normal, QIcon::Off);
     for (int i =0; i < bomb; i++)
     {
         button[b[i]/M][b[i]%M].status = map.BOMB;
@@ -237,9 +235,9 @@ int Game::searchBomb(int x, int y, int N, int M)
 void Game::setImageNumber(int x, int y, int num)
 {
     QIcon icon;
-    icon.addFile(QString(":/image/"+QString::number(num)+".ico"), QSize(20, 20), QIcon::Normal, QIcon::Off);
+    icon.addFile(QString(":/image/"+QString::number(num)+".ico"), QSize(30, 30), QIcon::Normal, QIcon::Off);
     button[x][y].setIcon(icon);
-    button[x][y].setStyleSheet("QPushButton { border:solid;}");
+    button[x][y].setStyleSheet("QPushButton { border:solid; background: #DCDCDC}");
   //  button[x][y].setEnabled(false);
 }
 
