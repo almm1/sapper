@@ -20,17 +20,20 @@ SOURCES += \
     game.cpp \
     main.cpp \
     mainwindow.cpp \
-    map.cpp
+    map.cpp \
+    menuwindow.cpp
 
 HEADERS += \
     cell.h \
     game.h \
     mainwindow.h \
     map.h \
+    menuwindow.h \
     qmypushbutton.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    menuwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

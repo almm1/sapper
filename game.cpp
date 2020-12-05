@@ -10,6 +10,9 @@ Game::Game()
 
 void Game::CreateButton(int N, int M)
 {
+    int k=0;
+    cell = new Cell[N*M];
+
     button = new Cell* [N];
       for (int i = 0; i<N; i++)
         button[i]=new Cell[M];
@@ -18,14 +21,20 @@ void Game::CreateButton(int N, int M)
     {
         for (int j = 0; j<M; j++)
         {
-           // this->setButton(&button[i][j],i,j);
-            //ui->gridLayout->addWidget(&button[i][j], i,j);
-            signal(&button[i][j], i,j);
+            /*signal(&button[i][j], i,j);
             button[i][j].setX(i);
             button[i][j].setY(j);
             //подключение сигнала
             connect(&button[i][j], &QMyPushButton::lClicked, this, &Game::slotGetButton);//для левой кнопки мыши
-            connect(&button[i][j], &QMyPushButton::rClicked, this, &Game::slotRclick);//для правой кнопки мыши
+            connect(&button[i][j], &QMyPushButton::rClicked, this, &Game::slotRclick);//для правой кнопки мыши*/
+
+            signal(&cell[k], i,j);
+            cell[k].setX(i);
+            cell[k].setY(j);
+            //подключение сигнала
+            connect(&cell[k], &QMyPushButton::lClicked, this, &Game::slotGetButton);//для левой кнопки мыши
+            connect(&cell[k], &QMyPushButton::rClicked, this, &Game::slotRclick);//для правой кнопки мыши
+            k++;
         }
     }
 }
@@ -90,14 +99,17 @@ void Game::createBomb(int N, int M, int bomb, int x, int y)
     icon.addFile(QString(":/image/bomb.ico"), QSize(30, 30), QIcon::Normal, QIcon::Off);
     for (int i =0; i < bomb; i++)
     {
-        button[b[i]/M][b[i]%M].status = map.BOMB;
+       /* button[b[i]/M][b[i]%M].status = map.BOMB;
 
-        button[b[i]/M][b[i]%M].setIcon(icon);
+        button[b[i]/M][b[i]%M].setIcon(icon);*/
        // button[b[i]/M][b[i]%M].setEnabled(false);
+
+        cell[b[i]].status = map.BOMB;
+        cell[b[i]].setIcon(icon);
     }
 
 
-    for (int i = 0; i<N; i++)
+   /* for (int i = 0; i<N; i++)
     {
         for (int j =0; j<M; j++)
         {
@@ -115,7 +127,29 @@ void Game::createBomb(int N, int M, int bomb, int x, int y)
                 }
             }
         }
-    }
+    }*/
+int k=0;
+
+    for (int i = 0; i<N; i++)
+        {
+            for (int j =0; j<M; j++)
+            {
+                if (cell[k].status!=map.BOMB)
+               {
+                    if ((cell[k].bombAround=searchBomb(i,j,N,M))==0)
+                 {
+                        cell[k].status=map.HOLE;
+                        setImageNumber(i,j,cell[k].bombAround);
+                  }
+                    else
+                    {
+                        cell[k].status=map.NUMB;
+                        setImageNumber(i,j,cell[k].bombAround);
+                    }
+                    k++;
+                }
+            }
+        }
 }
 
 int Game::searchBomb(int x, int y, int N, int M)

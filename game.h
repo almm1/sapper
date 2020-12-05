@@ -27,7 +27,7 @@ signals:
     void signal(QWidget *qwidget, int x, int y);
 private:
     Map map;
-   // Cell cell;
+    Cell *cell;
     Cell **button;
 };
 

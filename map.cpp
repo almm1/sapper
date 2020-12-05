@@ -2,11 +2,11 @@
 
 Map::Map()
 {
-    setN(9);
+    setN(16);
 
-    setM(9);
+    setM(30);
 
-    setBomb(10);
+    setBomb(99);
 }
 
 void Map::setBomb(int Bomb){bomb = Bomb;}
