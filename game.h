@@ -12,12 +12,12 @@ class Game: public QObject
     Q_OBJECT
 public:
      Game();
-    void CreateButton(int N, int M);
-    void createBomb(int N, int M, int bomb, int x, int y);
+    void CreateButton();
+    void createBomb(int bomb, int x, int y);
     void slotGetButton();
     void slotRclick();
-    void clearZone(int x, int y, int N, int M);
-    int searchBomb(int x, int y, int N, int M);
+    void clearZone(int x, int y);
+    int searchBomb(int x, int y);
     void setImageNumber(int x, int y, int num);
 
     int pressLeftCnt;
@@ -27,7 +27,7 @@ signals:
     void signal(QWidget *qwidget, int x, int y);
 private:
     Map map;
-    Cell *cell;
+   // Cell cell;
     Cell **button;
 };
 

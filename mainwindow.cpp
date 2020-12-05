@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     connect(&game, &Game::signal, this, &MainWindow::setButton);//коннектор функций класса Game для изменения ui окна MainWindow
-    game.CreateButton(game.n_s,game.m_s);//создание поля
+    game.CreateButton();//создание поля
 
     this->setWindowFlag(Qt::MSWindowsFixedSizeDialogHint);//запрет на изменение размера окна
 }
