@@ -16,7 +16,7 @@ public:
     void setM(int number);
     int getM();
 
-    enum {BOMB, FLAG, MARK, NUMB, HOLE};
+    enum {BOMB, NUMB, HOLE};
 private:
     int N = 0;
     int M = 0;

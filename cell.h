@@ -19,6 +19,8 @@ public:
 
     int status;
     int bombAround;
+    bool isFlag;
+    bool isOpen;
 
 private:
 

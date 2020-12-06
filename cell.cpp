@@ -4,6 +4,7 @@ Cell::Cell(QWidget *parent) :
     QMyPushButton(parent)
 {
     this->setFixedSize(30,30);//фиксированый размер кнопки
+    isOpen=false;
 }
 
 Cell::~Cell(){}

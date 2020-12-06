@@ -12,7 +12,6 @@
         <file>flag.ico</file>
         <file>logo.ico</file>
         <file>reset.ico</file>
-        <file>questionmark.ico</file>
         <file>0.ico</file>
     </qresource>
 </RCC>

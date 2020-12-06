@@ -6,6 +6,7 @@
 #include "map.h"
 #include "cell.h"
 #include <QTime>
+#include <QMessageBox>
 
 class Game: public QObject
 {
@@ -19,15 +20,17 @@ public:
     void clearZone(int x, int y);
     int searchBomb(int x, int y);
     void setImageNumber(int x, int y, int num);
+    void  gameLose();
+    void restart();
 
     int pressLeftCnt;
     int n_s;
     int m_s;
 signals:
-    void signal(QWidget *qwidget, int x, int y);
+    void signalCreate(QWidget *qwidget, int x, int y);
+    void signalLabel(int n);
 private:
     Map map;
-   // Cell cell;
     Cell **button;
 };
 

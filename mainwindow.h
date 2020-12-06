@@ -17,6 +17,10 @@ public:
     ~MainWindow();
 
     void setButton(QWidget *qwidget,int x, int y);
+    void setLabel(int n);
+private slots:
+    void on_pushButton_clicked();
+
 private:
       Game game;
       Ui::MainWindow *ui;
