@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(int n, int m, int b, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -10,6 +10,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(&game, &Game::signalCreate, this, &MainWindow::setButton);//коннектор функций класса Game для изменения ui окна MainWindow
     connect(&game, &Game::signalLabel, this, &MainWindow::setLabel);
+    connect(&game, &Game::exit, this, &MainWindow::close);
+    game.setM(m);
+    game.setN(n);
+    game.setBomb(b);
     game.CreateButton();//создание поля
 
     this->setWindowFlag(Qt::MSWindowsFixedSizeDialogHint);//запрет на изменение размера окна
@@ -33,4 +37,9 @@ void MainWindow::setLabel(int n)
 void MainWindow::on_pushButton_clicked()
 {
     game.restart();
+}
+
+void MainWindow::close()
+{
+    showMenu();
 }

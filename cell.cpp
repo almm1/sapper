@@ -5,6 +5,8 @@ Cell::Cell(QWidget *parent) :
 {
     this->setFixedSize(30,30);//фиксированый размер кнопки
     isOpen=false;
+    bombAround=0;
+    isFlag=false;
 }
 
 Cell::~Cell(){}

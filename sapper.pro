@@ -20,14 +20,12 @@ SOURCES += \
     game.cpp \
     main.cpp \
     mainwindow.cpp \
-    map.cpp \
     menuwindow.cpp
 
 HEADERS += \
     cell.h \
     game.h \
     mainwindow.h \
-    map.h \
     menuwindow.h \
     qmypushbutton.h
 

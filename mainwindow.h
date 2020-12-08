@@ -13,11 +13,15 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(int n=0, int m=0, int b=0, QWidget *parent = 0);
     ~MainWindow();
 
     void setButton(QWidget *qwidget,int x, int y);
     void setLabel(int n);
+    void close();
+
+signals:
+    void showMenu();
 private slots:
     void on_pushButton_clicked();
 
