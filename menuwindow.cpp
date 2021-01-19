@@ -7,6 +7,8 @@ MenuWindow::MenuWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->radioButton->setChecked(true);
+
+    this->setWindowFlag(Qt::MSWindowsFixedSizeDialogHint);//запрет на изменение размера окна
     }
 
 MenuWindow::~MenuWindow()
@@ -50,14 +52,36 @@ void MenuWindow::on_pushButton_clicked()
     }
     mw = new MainWindow(n, m, bomb);
     connect(mw, &MainWindow::showMenu, this, &MenuWindow::ret);
-    mw->show();
-    this->hide();
+    if(ui->checkBox1->isChecked())
+    {
+        if (ui->timeEdit->time()==QTime(0,0,0))
+        {
+            QMessageBox box;
+            box.setWindowTitle("");
+            box.setText("Введите время");
+            box.addButton(tr("Заново"), QMessageBox::ActionRole);
+            box.exec();
+        }
+        else
+        {
+            mw->setTime(ui->timeEdit->time(), -1);
+            mw->show();
+            this->hide();
+        }
+    }
+    else
+    {
+        mw->setTime(ui->timeEdit->time(), 1);
+        mw->show();
+        this->hide();
+    }
 }
 
 void MenuWindow::on_checkBox_stateChanged(int arg1)
 {
 
 }
+
 
 void MenuWindow::on_pushButton_3_clicked()
 {

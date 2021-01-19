@@ -466,10 +466,19 @@
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::UpDownArrows</enum>
+        </property>
+        <property name="currentSection">
+         <enum>QDateTimeEdit::SecondSection</enum>
+        </property>
+        <property name="displayFormat">
+         <string>mm:ss</string>
+        </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox">
+       <widget class="QCheckBox" name="checkBox1">
         <property name="text">
          <string>Игра на время</string>
         </property>

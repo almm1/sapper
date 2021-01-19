@@ -55,7 +55,7 @@ void Game::slotGetButton()
     {
         if (but->status==BOMB && but->isFlag==false)
         {
-            gameLose(x , y);
+            gameLose(0, x , y);
         }
         else clearZone(x, y);
         if (checkWin()==1)
@@ -251,7 +251,6 @@ int Game::searchBomb(int x, int y)
             }
         }
     }
-
     else
     {
         for (int i = -1; i<2; i++)
@@ -303,8 +302,9 @@ void Game::clearZone(int x, int y)
     }
 }
 
-void Game:: gameLose(int x, int y)
+void Game:: gameLose(int mode, int x, int y)
 {
+    stopSignal();
     button[x][y].setStyleSheet("QPushButton { background: red}");
 
     QIcon icon;
@@ -314,7 +314,10 @@ void Game:: gameLose(int x, int y)
 
     QMessageBox box;
     box.setWindowTitle("");
+    if (mode == 0)
     box.setText("Вы проиграли:(");
+    if (mode == 1)
+    box.setText("Вы проиграли:(, Время вышло.");
     box.setWindowIcon(icon);
     QPushButton *rep = box.addButton(tr("Заново"), QMessageBox::ActionRole);
     QPushButton *Output = box.addButton(tr("Выйти"), QMessageBox::ActionRole);
@@ -364,6 +367,7 @@ int Game::checkWin()
 
 void Game::gameWin()
 {
+    stopSignal();
     QIcon icon;
 
     icon.addFile(QString(":/image/logo.ico"));
@@ -390,6 +394,7 @@ void Game::gameWin()
 
 void Game::restart()
 {
+    resetSignal();
     for (int i = 0; i < N; i++)
          delete[] button[i];
      delete[] button;

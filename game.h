@@ -4,6 +4,7 @@
 #include <QObject>
 #include "cell.h"
 #include <QTime>
+#include <QTimer>
 #include <QMessageBox>
 
 class Game: public QObject
@@ -19,7 +20,7 @@ public:
     void clearZone(int x, int y);
     int searchBomb(int x, int y);
     void setImageNumber(int x, int y, int num);
-    void gameLose(int x, int y);
+    void gameLose(int mode, int x=0, int y=0);
     void restart();
     int checkWin();
     void gameWin();
@@ -39,6 +40,8 @@ signals:
     void signalCreate(QWidget *qwidget, int x, int y);
     void signalLabel(int n);
     void exit();
+    void stopSignal();
+    void resetSignal();
 
 private:
     Cell **button;
